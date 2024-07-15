@@ -15,7 +15,7 @@ const Todo  = (props) => {
         <li className={style.li}>
             <div className={style.row}>
                 <input type='checkbox' className='m-auto'/>
-                <p className={style.text}>{props.todo}</p>
+                <p className={style.text}>{props.todo.task}</p>
             </div>
 
             <button><TbTrash /></button>
