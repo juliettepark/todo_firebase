@@ -7,7 +7,7 @@ import Todo from "./components/Todo";
 // Default import like import db from __ will import what was default exported
 // It loses its name and is renamed to db.
 import {db} from './firebase.js'; // const that we initialized
-import { query, collection, onSnapshot } from 'firebase/firestore'; // methods from firebase
+import { query, collection, onSnapshot, updateDoc, doc } from 'firebase/firestore'; // methods from firebase
 
 
 const style = {
@@ -55,6 +55,11 @@ function App() {
     return () => unsubscribe()
   }, [])
 
+  const toggleComplete = async (todo) => {
+    await updateDoc(doc(db, 'todo-list', todo.id), {
+      completed: !todo.completed
+    })
+  }
 
   return (
     <div className={style.bg}>
@@ -72,7 +77,7 @@ function App() {
         {/* View Previous To-Do */}
         <ul>
           {todos.map((todo, index) => (
-            <Todo key={index} todo={todo}/>
+            <Todo key={index} todo={todo} toggleComplete={toggleComplete}/>
           ))}
         </ul>
 
